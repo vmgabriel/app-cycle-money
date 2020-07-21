@@ -10,7 +10,7 @@ Manage of Personal Money
 ![sqlite 3 - logo](https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/SQLite370.svg/1200px-SQLite370.svg.png "sqlite3 logo")
 
 ### Python
-![Python - Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/480px-Python-logo-notext.svg.png ""Python Logo")
+![Python - Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/480px-Python-logo-notext.svg.png "Python Logo")
 
 ### Django
 ![Django - Logo](https://s3-us-west-2.amazonaws.com/devcodepro/media/blog/por-que-usar-django.png "Django Logo")
