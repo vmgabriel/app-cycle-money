@@ -1,0 +1,154 @@
+/* Root */
+
+:root {
+    --main-bg-color: LemonChiffon;
+    --color-letter: SandyBrown;
+    --defined-color: Goldenrod;
+    --border-defined-color: Chocolate;
+    --color-letter-footer: PaleGoldenrod;
+    --defined-gray-color: #999;
+    --form-color: WhiteSmoke;
+
+    --control-clear: rgba(255, 255, 255, 0);
+    --footer-color: #555;
+}
+
+
+/* Base Style */
+
+span {
+    margin: 0.4em;
+    font-size: 19px;
+    letter-spacing: 0.040em;
+    font-weight: 900;
+}
+
+a {
+    font-weight: 300;
+    font-size: 15px;
+}
+
+input, .form-control, select, .select {
+    background-color: var(--control-clear);
+    border-color: var(--defined-color);
+}
+
+input:focus, .form-control:focus, select, .select {
+    border-color: var(--border-defined-color);
+}
+
+button {
+    height: 3em;
+    background-color: var(--border-defined-color);
+}
+
+input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+
+    border: 2px solid var(--defined-gray-color);
+    transition: 0.2s all linear;
+    margin-right: 5px;
+
+    position: relative;
+    top: 4px;
+}
+
+input[type="radio"]:checked {
+    border: 6px solid var(--border-defined-color);
+}
+
+select {
+    width: 100%;
+}
+
+/* Making */
+
+body {
+    background-color: var(--main-bg-color);
+    color: var(--color-letter);
+}
+
+nav {
+    box-shadow: 2px 2px 10px var(--defined-color);
+    margin-bottom: 1em;
+}
+
+footer {
+    margin-top: 1em;
+    background-color: var(--footer-color);
+    height: 200px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    margin-top: 2em;
+}
+
+/* Decoration of words */
+
+.copy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-letter-footer);
+}
+
+/* Form Classes */
+.form-title, .form-content {
+    background-color: var(--form-color);
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    border: 1px solid var(--defined-color);
+    border-radius: 10px;
+}
+
+.form-title {
+    justify-content: center;
+    align-items: center;
+}
+
+.value-definition {
+    display: flex;
+}
+
+.value-definition .input-group-prepend {
+    border-radius: .25rem 0rem 0rem .25rem;
+}
+
+.value-definition .input-group-prepend .input-group-text {
+    color: Goldenrod;
+    border-color: Goldenrod;
+    border-radius: .25rem 0rem 0rem .25rem;
+}
+
+.value-definition .form-control {
+    border-radius: 0rem .25rem .25rem 0rem;
+}
+
+
+/* Control data */
+.centering {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-primary {
+    background-color: var(--border-defined-color);
+    border-color: var(--border-defined-color);
+}
+
+.all-anchor {
+    margin-top: 1em;
+    width: 100%;
+}

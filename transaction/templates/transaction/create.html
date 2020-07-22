@@ -1,0 +1,147 @@
+{% extends "index.html" %}
+
+
+{% block content %}
+<div class="form-content">
+    <div class="form-title">
+        <h2>Create Transaction</h2>
+    </div>
+
+    <form action="/create">
+        <div class="form-group">
+            <label for="tb_name">Name</label>
+            <input
+                type="text"
+                name="name"
+                class="form-control"
+                id="tb_name"
+            />
+            <small
+                id="emailHelp"
+                class="form-text text-muted"
+            >
+                A alias for show easily.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="ta_description">Description</label>
+            <textarea
+                type="text"
+                name="description"
+                class="form-control"
+                id="ta_description"
+                row="3"
+            ></textarea>
+        </div>
+
+        <div class="form-group">
+            <div class="form-row">
+                <div class="col-md-8 col-sm-12">
+                    <label for="tb_date">Date Transaction</label>
+                    <input
+                        type="date"
+                        name="date"
+                        class="form-control"
+                        id="tb_date"
+                    />
+                </div>
+
+                <div class="col-md-4 col-sm-12">
+                    <label for="tb_time">Time Transaction</label>
+                    <input
+                        type="time"
+                        name="time"
+                        class="form-control"
+                        id="tb_time"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="cb_type">Type</label>
+            <div class="form-row align-items-center">
+                <div class="col-12">
+                    <label class="mr-sm-12 sr-only" for="select_type">
+                        Preference
+                    </label>
+
+                    <select
+                        class="custom-select mr-sm-12 select"
+                        id="select_type"
+                    >
+                        <option selected>Choose One...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                </div>
+            </div>
+
+            <input
+                type="checkbox"
+                name="type"
+                class="custom-control-input"
+                id="cb_type"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="tb_value">Value</label>
+            <div class="value-definition">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">$</div>
+                </div>
+                <input
+                    type="number"
+                    name="value"
+                    class="form-control"
+                    id="tb_value"
+                />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Mode Type</label>
+            <div class="form-check">
+                <input
+                    type="radio"
+                    name="is_checked"
+                    id="r_mode_type_1"
+                    class="form-check-input"
+                    value="Input"
+                    checked
+                >
+                <label
+                    class="form-check-label"
+                    for="r_mode_type_1"
+                >
+                    Input
+                </label>
+            </div>
+            <div class="form-check">
+                <input
+                    type="radio"
+                    name="is_checked"
+                    id="r_mode_type_2"
+                    class="form-check-input"
+                    value="Output"
+                >
+                <label
+                    class="form-check-label"
+                    for="r_mode_type_2"
+                >
+                    Output
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group centering">
+            <button type="submit" class="btn btn-primary all-anchor">Submit</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
