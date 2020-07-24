@@ -135,6 +135,10 @@ form {
     border-radius: 0rem .25rem .25rem 0rem;
 }
 
+.btn-box {
+    margin-top: 2em;
+}
+
 
 /* Control data */
 .centering {
@@ -151,4 +155,8 @@ form {
 .all-anchor {
     margin-top: 1em;
     width: 100%;
+}
+
+.hide {
+    display: none;
 }

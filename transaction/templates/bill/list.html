@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+
+<h1>Articles</h1>
+
+<ul>
+    {% for bill in object_list %}
+    <li>{{ bill.name }} - {{ bill.description }} - {{ bill.is_valid }}</li>
+    {% empty %}
+    <li>No articles yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}

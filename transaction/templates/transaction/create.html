@@ -1,13 +1,14 @@
 {% extends "index.html" %}
-
+{% load static %}
 
 {% block content %}
 <div class="form-content">
     <div class="form-title">
-        <h2>Create Transaction</h2>
+        <h2>Create Bill</h2>
     </div>
 
-    <form action="/create">
+    <form action="/create/" method="POST">
+        {% csrf_token %}
         <div class="form-group">
             <label for="tb_name">Name</label>
             <input
@@ -15,6 +16,7 @@
                 name="name"
                 class="form-control"
                 id="tb_name"
+                required
             />
             <small
                 id="emailHelp"
@@ -44,6 +46,7 @@
                         name="date"
                         class="form-control"
                         id="tb_date"
+                        required
                     />
                 </div>
 
@@ -54,13 +57,20 @@
                         name="time"
                         class="form-control"
                         id="tb_time"
+                        required
                     />
                 </div>
             </div>
+            <small
+                id="emailHelp"
+                class="form-text text-muted"
+            >
+                Select Date And Time
+            </small>
         </div>
 
         <div class="form-group">
-            <label for="cb_type">Type</label>
+            <label for="cb_type">Type Bill</label>
             <div class="form-row align-items-center">
                 <div class="col-12">
                     <label class="mr-sm-12 sr-only" for="select_type">
@@ -89,59 +99,135 @@
         </div>
 
         <div class="form-group">
-            <label for="tb_value">Value</label>
-            <div class="value-definition">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">$</div>
+            <label for="cb_consume">Type</label>
+            <div class="form-row align-items-center">
+                <div class="col-12">
+                    <label class="mr-sm-12 sr-only" for="select_type">
+                        Consume Product
+                    </label>
+
+                    <select
+                        class="custom-select mr-sm-12 select"
+                        id="select_type"
+                    >
+                        <option selected>Choose One...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
                 </div>
-                <input
-                    type="number"
-                    name="value"
-                    class="form-control"
-                    id="tb_value"
-                />
             </div>
+
+            <input
+                type="checkbox"
+                name="type"
+                class="custom-control-input"
+                id="cb_type"
+            />
         </div>
 
         <div class="form-group">
-            <label>Mode Type</label>
+            <label>Is Repeter?</label>
             <div class="form-check">
                 <input
                     type="radio"
-                    name="is_checked"
-                    id="r_mode_type_1"
+                    name="is_repeter"
                     class="form-check-input"
-                    value="Input"
+                    id="r_is_repeter_false"
+                    value="False"
+                    onclick="changeIsRepeter()"
                     checked
                 >
                 <label
                     class="form-check-label"
-                    for="r_mode_type_1"
+                    for="r_is_repeter_false"
                 >
-                    Input
+                    No
                 </label>
             </div>
             <div class="form-check">
                 <input
                     type="radio"
-                    name="is_checked"
-                    id="r_mode_type_2"
+                    name="is_repeter"
                     class="form-check-input"
-                    value="Output"
+                    id="r_is_repeter_true"
+                    onclick="changeIsRepeter()"
+                    value="True"
                 >
                 <label
                     class="form-check-label"
-                    for="r_mode_type_2"
+                    for="r_is_repeter_true"
                 >
-                    Output
+                    Yes
                 </label>
             </div>
         </div>
 
-        <div class="form-group centering">
-            <button type="submit" class="btn btn-primary all-anchor">Submit</button>
+        <div class="form-group hide" id="repeter-selector">
+            <label for="cb_repeter">Type Repeter</label>
+            <div class="form-row align-items-center">
+                <div class="col-12">
+                    <label class="mr-sm-12 sr-only" for="select_repeter">
+                        Type Repeter
+                    </label>
+
+                    <select
+                        class="custom-select mr-sm-12 select"
+                        id="select_repeter"
+                    >
+                        <option selected>Choose One...</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+
+                </div>
+            </div>
+
+            <input
+                type="checkbox"
+                name="type"
+                class="custom-control-input"
+                id="cb_repeter"
+            />
+        </div>
+
+        <div class="form-group centering btn-box">
+            <button
+                type="submit"
+                class="btn btn-primary all-anchor"
+            >
+                Submit
+            </button>
         </div>
     </form>
 </div>
+
+</script>
+
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+
+ const getData = (data) => document.getElementById(data);
+
+ const switchClassName =
+     (className) =>
+         (element) =>
+             (element.classList.contains(className))
+             ? element.classList.remove(className)
+             : element.classList.add(className);
+
+
+ function changeIsRepeter() {
+     const data = getData('repeter-selector');
+     switchClassName('hide')(data);
+ }
+
+</script>
 
 {% endblock %}
