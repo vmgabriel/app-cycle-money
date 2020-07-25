@@ -14,7 +14,7 @@ class Repeter(models.Model):
     weekly = models.IntegerField(default=0)
     each_month = models.IntegerField(default=0)
     each_year = models.IntegerField(default=0)
-    is_valid = models.BooleanField(default=True)
+    is_delete = models.BooleanField(default=False)
 
     def __str__(self):
         data = 'name: {}, hourly: {}, each day: {}, weekly: {}, each month: {}'
@@ -31,18 +31,18 @@ class Priority(models.Model):
     """Priority Model for Data Based in Priority"""
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=250)
-    is_valid = models.BooleanField(default=True)
+    is_delete = models.BooleanField(default=False)
 
     def __str__(self):
         data = 'name: {}, is deleted: {}'
-        return data.format(self.name, self.is_valid)
+        return data.format(self.name, self.is_delete)
 
 
 class Category(models.Model):
     """Category Model for data Based in Consume"""
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=250)
-    is_valid = models.BooleanField(default=True)
+    is_delete = models.BooleanField(default=False)
     priority = models.ForeignKey(
         Priority,
         on_delete=models.CASCADE
@@ -50,25 +50,25 @@ class Category(models.Model):
 
     def __str__(self):
         data = 'name: {}, is deleted: {}'
-        return data.format(self.name, self.is_valid)
+        return data.format(self.name, self.is_delete)
 
 
 class TypeConsume(models.Model):
     """Type Consume Data for Module"""
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=250)
-    is_valid = models.BooleanField(default=True)
+    is_delete = models.BooleanField(default=False)
 
     def __str__(self):
         data = 'name: {}, is deleted: {}'
-        return data.format(self.name, self.is_valid)
+        return data.format(self.name, self.is_delete)
 
 
 class Consume(models.Model):
     """Product Class That Input or Output Data"""
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=250)
-    is_valid = models.BooleanField(default=True)
+    is_delete = models.BooleanField(default=False)
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE
@@ -80,18 +80,18 @@ class Consume(models.Model):
 
     def __str__(self):
         data = 'name: {}, is deleted: {}'
-        return data.format(self.name, self.is_valid)
+        return data.format(self.name, self.is_delete)
 
 
 class TypeBill(models.Model):
     """Type Transaction Model, This Data Get Entrance/Exit en Data"""
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=250)
-    is_valid = models.BooleanField(default=True)
+    is_delete = models.BooleanField(default=False)
 
     def __str__(self):
         data = 'name: {}, is deleted: {}'
-        return data.format(self.name, self.is_valid)
+        return data.format(self.name, self.is_delete)
 
 
 class Bill(models.Model):
@@ -99,7 +99,7 @@ class Bill(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=250)
     date = models.DateTimeField()
-    is_valid = models.BooleanField(default=True)
+    is_delete = models.BooleanField(default=False)
     is_repeter = models.BooleanField()
     repeter = models.ForeignKey(
         Repeter,
@@ -119,7 +119,7 @@ class Transaction(models.Model):
     """Transaction Connection"""
     description = models.CharField(max_length=250)
     date_payed = models.DateTimeField()
-    is_valid = models.BooleanField(default=True)
+    is_delete = models.BooleanField(default=False)
     consume = models.ForeignKey(
         Consume,
         on_delete=models.CASCADE
@@ -131,4 +131,4 @@ class Transaction(models.Model):
 
     def __str__(self):
         data = 'date payed: {}, is deleted: {}'
-        return data.format(self.date_payed, self.is_valid)
+        return data.format(self.date_payed, self.is_delete)

@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<h1>Priorities</h1>
+
+<h3>Counter: {{ count_priorities }}</h3>
+
+<a href="{% url 'transactions:priorities_create' %}">Create new Priority</a>
+
+<ul>
+    {% for priority in priorities %}
+    <li>{{ priority.name }} - {{ priority.description }} - {{ bill.is_valid }}</li>
+    {% empty %}
+    <li>No Priority yet.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+
+{% block script %}
+{% endblock %}

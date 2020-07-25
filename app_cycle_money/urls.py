@@ -15,8 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.shortcuts import render
+
+
+def index(request):
+    """Index"""
+    return render(request, 'main.html')
+
 
 urlpatterns = [
+    path('', index),
     path('', include('transaction.urls')),
 
     path('admin/', admin.site.urls),

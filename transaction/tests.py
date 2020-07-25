@@ -16,7 +16,7 @@ def get_data_basic():
     return {
         'name': 'test',
         'description': 'test description',
-        'is_valid': True
+        'is_delete': False
     }
 
 
@@ -51,7 +51,7 @@ def create_repeter():
         'weekly': 1,
         'each_month': 0,
         'each_year': 0,
-        'is_valid': True
+        'is_delete': False
     }
     return Repeter.objects.create(**data)
 
@@ -76,7 +76,7 @@ def create_bill():
         'name': 'test',
         'description': 'test description',
         'date': timezone.now(),
-        'is_valid': True,
+        'is_delete': False,
         'is_repeter': True,
         'repeter': create_repeter(),
         'type_bill': create_type_bill()
@@ -99,7 +99,7 @@ class RepeterModelTests(TestCase):
             'weekly': 1,
             'each_month': 0,
             'each_year': 0,
-            'is_valid': True
+            'is_delete': False
         }
 
         test_data = 'name: {}, hourly: {}, each day: {}, '
@@ -131,7 +131,7 @@ class PriorityModelTests(TestCase):
         data = get_data_basic()
 
         test_data = 'name: {}, is deleted: {}'
-        test_data = test_data.format(data['name'], data['is_valid'])
+        test_data = test_data.format(data['name'], data['is_delete'])
 
         obje = Priority(**data)
         self.assertEqual(str(obje), test_data)
@@ -153,7 +153,7 @@ class CategoryModelTests(TestCase):
         data['priority'] = create_priority()
 
         test_data = 'name: {}, is deleted: {}'
-        test_data = test_data.format(data['name'], data['is_valid'])
+        test_data = test_data.format(data['name'], data['is_delete'])
 
         obje = Category(**data)
         self.assertEqual(str(obje), test_data)
@@ -174,7 +174,7 @@ class TypeConsumeModelTests(TestCase):
         data = get_data_basic()
 
         test_data = 'name: {}, is deleted: {}'
-        test_data = test_data.format(data['name'], data['is_valid'])
+        test_data = test_data.format(data['name'], data['is_delete'])
 
         obje = TypeConsume(**data)
         self.assertEqual(str(obje), test_data)
@@ -197,7 +197,7 @@ class ConsumeModelTests(TestCase):
         data['type_consume'] = create_type_consume()
 
         test_data = 'name: {}, is deleted: {}'
-        test_data = test_data.format(data['name'], data['is_valid'])
+        test_data = test_data.format(data['name'], data['is_delete'])
 
         obje = Consume(**data)
         self.assertEqual(str(obje), test_data)
@@ -218,7 +218,7 @@ class TypeBillModelTests(TestCase):
         data = get_data_basic()
 
         test_data = 'name: {}, is deleted: {}'
-        test_data = test_data.format(data['name'], data['is_valid'])
+        test_data = test_data.format(data['name'], data['is_delete'])
 
         obje = TypeBill(**data)
         self.assertEqual(str(obje), test_data)
@@ -240,7 +240,7 @@ class BillModelTests(TestCase):
             'name': 'test',
             'description': 'test description',
             'date': timezone.now(),
-            'is_valid': True,
+            'is_delete': False,
             'is_repeter': True,
             'repeter': create_repeter(),
             'type_bill': create_type_bill()
@@ -271,13 +271,13 @@ class TransactionModelTests(TestCase):
         data = {
             'description': 'test description',
             'date_payed': timezone.now(),
-            'is_valid': 1,
+            'is_delete': False,
             'consume': create_consume(),
             'bill': create_bill()
         }
 
         test_data = 'date payed: {}, is deleted: {}'
-        test_data = test_data.format(data['date_payed'], data['is_valid'])
+        test_data = test_data.format(data['date_payed'], data['is_delete'])
 
         obje = Transaction(**data)
         self.assertEqual(str(obje), test_data)

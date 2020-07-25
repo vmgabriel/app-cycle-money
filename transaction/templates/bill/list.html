@@ -7,7 +7,7 @@
 
 <ul>
     {% for bill in object_list %}
-    <li>{{ bill.name }} - {{ bill.description }} - {{ bill.is_valid }}</li>
+    <li>{{ bill.name }} - {{ bill.description }} - {{ bill.is_delete }}</li>
     {% empty %}
     <li>No articles yet.</li>
     {% endfor %}

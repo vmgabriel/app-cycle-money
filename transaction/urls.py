@@ -8,7 +8,22 @@ from . import views
 
 app_name = 'transactions'
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('data/', views.index, name='index'),
     path('create/', views.create, name='create'),
-    path('bills/', views.BillsView.as_view(), name='views')
+    path('bills/', views.BillsView.as_view(), name='views'),
+    path(
+        'priorities/',
+        views.PriorityListView.as_view(),
+        name='priorities_list'
+    ),
+    path(
+        'priorities/create/',
+        views.PriorityCreateView.as_view(),
+        name='priorities_create'
+    ),
+    path(
+        'priorities/<int:id>/edit/',
+        views.PriorityCreateView.as_view(),
+        name='priorities_edit'
+    )
 ]

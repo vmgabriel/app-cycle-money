@@ -1,0 +1,68 @@
+{% extends "index.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="form-content">
+    <div class="form-title">
+        <h2>{{ mode | title }} Priority</h2>
+    </div>
+
+    <form action="/priorities/create/" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_name">Name</label>
+            <input
+                type="text"
+                name="name"
+                class="form-control"
+                id="id_name"
+                maxlength="100"
+                required
+            />
+            <small
+                id="emailHelp"
+                class="form-text text-muted"
+            >
+                A alias for show easily.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="ta_description">Description</label>
+            <textarea
+                type="text"
+                name="description"
+                class="form-control"
+                id="id_description"
+                row="3"
+                maxlength="250"
+                required
+            ></textarea>
+        </div>
+
+        <div class="form-group {% if mode == 'create' %}hide{% endif %}">
+            <label for="id_is_delete">Is delete:</label>
+            <input type="checkbox" name="is_delete" id="id_is_delete" />
+        </div>
+
+        <div class="form-group centering btn-box">
+            <button
+                type="submit"
+                class="btn btn-primary all-anchor"
+            >
+                Submit
+            </button>
+        </div>
+    </form>
+</div>
+
+</script>
+
+{% endblock %}
+
+
+{% block script %}
+
+{% endblock %}
