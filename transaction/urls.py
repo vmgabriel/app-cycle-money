@@ -38,5 +38,30 @@ urlpatterns = [
         name='priorities_show'
     ),
 
-    # Type Consume
+    # Type Consume Routes
+    path(
+        'type-consumes/',
+        views.TypeConsumeEntityView.as_view(),
+        name='type_consumes_list',
+    ),
+    path(
+        'type-consumes/create/',
+        views.TypeConsumeEntityView.as_view(),
+        name='type_consumes_create'
+    ),
+    path(
+        'type-consumes/<int:id>/edit/',
+        views.TypeConsumeEntityView.as_view(),
+        name='type_consumes_edit'
+    ),
+    path(
+        'type-consumes/<int:id>/delete/',
+        views.TypeConsumeEntityView.as_view(),
+        name='type_consumes_delete'
+    ),
+    path(
+        'type-consumes/<int:id>/show/',
+        views.TypeConsumeEntityView.as_view(),
+        name='type_consumes_show'
+    ),
 ]

@@ -1,0 +1,84 @@
+{% extends "index.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="form-content">
+    <div class="form-title">
+        <div class="row only-anchor">
+            <a class="col-sm-1 centering no-decoration" href="{% url 'transactions:type_consumes_list' %}">
+                <i class="fas fa-arrow-left more-size"></i>
+            </a>
+            <h2 class="col-sm-10 centering">{{ mode | title }} Type Consume</h2>
+        </div>
+    </div>
+
+    <form
+        action="{% if mode == 'create' %}{% url 'transactions:type_consumes_create' %}{% else %}{% url 'transactions:type_consumes_edit' type_consume.id %}{% endif %}"
+        method="POST"
+    >
+        {% csrf_token %}
+        <p>
+            {{type_consume.name}}
+            {{type_consume.description}}
+            {{type_consume.is_delete}}
+        </p>
+        <div class="form-group">
+            <label for="id_name">Name</label>
+            <input
+                type="text"
+                name="name"
+                class="form-control"
+                id="id_name"
+                maxlength="100"
+                value="{% if mode == 'edit' %}{{ type_consume.name }}{% endif %}"
+                required
+            />
+            <small
+                id="emailHelp"
+                class="form-text text-muted"
+            >
+                A alias for show easily.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="id_description">Description</label>
+            <textarea
+                type="text"
+                name="description"
+                class="form-control"
+                id="id_description"
+                maxlength="250"
+                row="3"
+                required
+            >{% if mode == 'edit' %}{{ type_consume.description }}{% endif %}</textarea>
+        </div>
+
+        <div
+            class="form-group {% if mode == 'create' %}hide{% endif %}"
+        >
+            <label for="id_is_delete">Is delete:</label>
+            <input type="checkbox" name="is_delete" id="id_is_delete" {% if mode == 'edit' and type_consume.is_delete  %}checked{% endif %} />
+        </div>
+
+        <div class="form-group centering btn-box">
+            <button
+                type="submit"
+                class="btn btn-primary all-anchor"
+            >
+                Submit
+            </button>
+        </div>
+    </form>
+</div>
+
+</script>
+
+{% endblock %}
+
+
+{% block script %}
+
+{% endblock %}

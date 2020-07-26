@@ -1,0 +1,57 @@
+{% extends "index.html" %}
+{% load static %}
+{% load counter %}
+
+{% block content %}
+
+<div class="form-content">
+    <div class="form-title">
+        <div class="row only-anchor">
+            <a class="col-sm-1 centering no-decoration" href="{% url 'transactions:type_consumes_list' %}">
+                <i class="fas fa-arrow-left more-size"></i>
+            </a>
+            <h2 class="col-sm-10 centering">Detail of Type Consume {{ type_consume.id }}</h2>
+        </div>
+    </div>
+
+    <p></p>
+
+    <h4>Name</h4>
+    <p>
+        {{ type_consume.name }}
+    </p>
+    <h4>Description</h4>
+    <p>
+        {{ type_consume.description }}
+    </p>
+    <h4>Is Delete</h4>
+    <p>
+        {{ type_consume.is_delete|to_boolean_know }}
+    </p>
+
+    <div class="form-group btn-box centering">
+        <form
+            action="{% url 'transactions:type_consumes_delete' id=type_consume.id %}"
+            method="post"
+            class="col-sm-6 action-box"
+        >
+            {% csrf_token %}
+            <button action="submit" method="post" class="btn btn-danger only-anchor">
+                <i class="fas fa-trash-alt"> Delete</i>
+            </button>
+        </form>
+        <a
+            class="col-sm-6 btn btn-secondary free"
+            href="{% url 'transactions:type_consumes_edit' id=type_consume.id %}"
+        >
+            <i class="fas fa-edit"> Edit</i>
+        </a>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block script %}
+
+{% endblock %}
