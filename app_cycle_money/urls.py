@@ -27,5 +27,5 @@ urlpatterns = [
     path('', index),
     path('', include('transaction.urls')),
 
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='login_admin'),
 ]

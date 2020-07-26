@@ -2,7 +2,7 @@
 
 """Module that Define all Rooute of the module"""
 
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 
@@ -13,17 +13,22 @@ urlpatterns = [
     path('bills/', views.BillsView.as_view(), name='views'),
     path(
         'priorities/',
-        views.PriorityListView.as_view(),
-        name='priorities_list'
+        views.PriorityEntityView.as_view(),
+        name='priorities_list',
     ),
     path(
         'priorities/create/',
-        views.PriorityCreateView.as_view(),
+        views.PriorityEntityView.as_view(),
         name='priorities_create'
     ),
     path(
         'priorities/<int:id>/edit/',
-        views.PriorityCreateView.as_view(),
+        views.PriorityEntityView.as_view(),
         name='priorities_edit'
+    ),
+    path(
+        'priorities/<int:id>/delete/',
+        views.PriorityEntityView.as_view(),
+        name='priorities_delete'
     )
 ]

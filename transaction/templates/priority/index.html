@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% load static %}
+{% load counter %}
 
 
 {% block content %}
@@ -8,15 +9,155 @@
 
 <h3>Counter: {{ count_priorities }}</h3>
 
-<a href="{% url 'transactions:priorities_create' %}">Create new Priority</a>
+<div class="row justify-content-end">
+    <a
+        href="{% url 'transactions:priorities_create' %}"
+        class="btn btn-outline-dark"
+    >
+        Create New Priority
+    </a>
+</div>
 
-<ul>
-    {% for priority in priorities %}
-    <li>{{ priority.name }} - {{ priority.description }} - {{ bill.is_valid }}</li>
-    {% empty %}
-    <li>No Priority yet.</li>
-    {% endfor %}
-</ul>
+{% if priorities %}
+
+<table class="table all-anchor">
+    <thead>
+        <tr>
+            <th scope="col">
+                <a href="{% url 'transactions:priorities_list' %}?page={{offset}}&order={% if 'name' in orders or '-name' in orders %}{% for order in orders %}{% if order == 'name' or order == '-name' %}{{order|negative}},{% else %}{{ order }},{% endif %}{% endfor %}{% else %}{{orders|join_array|add_comma_end}}name,{% endif %}">
+                    Name
+                </a>
+                {% if 'name' in orders %}
+                <i class="fas fa-sort-up"></i>
+                {% endif %}
+                {% if '-name' in orders %}
+                <i class="fas fa-sort-down"></i>
+                {% endif %}
+            </th>
+            <th scope="col">
+                <a href="{% url 'transactions:priorities_list' %}?page={{offset}}&order={% if 'description' in orders or '-description' in orders %}{% for order in orders %}{% if order == 'description' or order == '-description' %}{{order|negative}},{% else %}{{ order }},{% endif %}{% endfor %}{% else %}{{orders|join_array|add_comma_end}}description,{% endif %}">
+                    Description
+                </a>
+                {% if 'description' in orders %}
+                <i class="fas fa-sort-up"></i>
+                {% endif %}
+                {% if '-description' in orders %}
+                <i class="fas fa-sort-down"></i>
+                {% endif %}
+            </th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for priority in priorities %}
+        <tr>
+            <td scope="row">
+                {{ priority.name }}
+            </td>
+            <td>
+                {{ priority.description }}
+            </td>
+            <td>
+                <div class="row">
+                    <form
+                        action="{% url 'transactions:priorities_delete' id=priority.id %}"
+                        method="post"
+                        class="action-box"
+                    >
+                        {% csrf_token %}
+                        <button action="submit" method="post" class="btn btn-outline-danger">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                    <a
+                        class="btn btn-outline-primary free"
+                        href="{% url 'transactions:priorities_edit' id=priority.id %}"
+                    >
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p>
+    {{ count_getted }} of {{ count_priorities }}
+</p>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {% if offset > 0 %}
+        <li class="page-item">
+            <a
+                class="page-link"
+                href="{% url 'transactions:priorities_list' %}?page={{offset|minus}}&order={{orders|join_array}}"
+            >
+                Previous
+            </a>
+        </li>
+        {% endif %}
+
+        {% if offset|minus > 0 %}
+        <li class="page-item">
+            <a
+                class="page-link"
+                href="{% url 'transactions:priorities_list' %}?page={{offset|minus|minus}}&order={{orders|join_array}}"
+            >
+                {{ offset|minus }}
+            </a>
+        </li>
+        {% endif %}
+
+        {% if offset > 0 %}
+        <li class="page-item">
+            <a
+                class="page-link"
+                href="{% url 'transactions:priorities_list' %}?page={{offset|minus}}&order={{orders|join_array}}"
+            >
+                {{ offset }}
+            </a>
+        </li>
+        {% endif %}
+
+        <li class="page-item active">
+            <a
+                class="page-link"
+                href=""
+            >
+                {{ offset|more }}
+            </a>
+        </li>
+
+        {% for paginate, is_valid in paginator %}
+        {% if is_valid %}
+        <li class="page-item">
+            <a
+                class="page-link"
+                href="{% url 'transactions:priorities_list' %}?page={{paginate|minus}}&order={{orders|join_array}}"
+            >
+                {{ paginate }}
+            </a>
+        </li>
+        {% endif %}
+        {% endfor %}
+
+        {% if next %}
+        <li class="page-item">
+            <a
+                class="page-link"
+                href="{% url 'transactions:priorities_list' %}?page={{offset|more}}&order={{orders|join_array}}"
+            >
+                Next
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+
+{% else %}
+<h3>No Priorities yet.</h3>
+{% endif %}
 
 {% endblock %}
 

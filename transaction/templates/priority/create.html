@@ -9,7 +9,7 @@
         <h2>{{ mode | title }} Priority</h2>
     </div>
 
-    <form action="/priorities/create/" method="POST">
+    <form action="{% url 'transactions:priorities_create' %}" method="POST">
         {% csrf_token %}
         <div class="form-group">
             <label for="id_name">Name</label>
