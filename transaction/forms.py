@@ -24,15 +24,6 @@ class PriorityForm(forms.ModelForm):
         ))
         return self.cleaned_data['description']
 
-    # def clean_is_delete(self):
-    #     """Clean is Delete Data"""
-    #     data = self.cleaned_data['is_delete']
-    #     if data not in ('True', 'False'):
-    #         raise forms.ValidationError(
-    #             'Is Delete Data not Valid'
-    #         )
-    #     return data == 'False'
-
     def save(self, commit=True):
         """Save Data Valid"""
         instance = super(PriorityForm, self).save(commit=False)

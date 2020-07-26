@@ -144,7 +144,7 @@ form {
     align-items: center;
 }
 
-.value-definition {
+.>value-><<><definition {
     display: flex;
 }
 
@@ -179,6 +179,14 @@ form {
     height: unset;
 }
 
+.search-box {
+    margin: 1em;
+}
+
+.paginator-box {
+    box-shadow: initial;
+}
+
 /* Control data */
 .centering {
     display: flex;
@@ -196,6 +204,10 @@ form {
     width: 100%;
 }
 
+.only-anchor {
+    width: 100%;
+}
+
 .hide {
     display: none;
 }
@@ -209,4 +221,20 @@ form {
     margin: 0;
     padding: 0.2em;
     border: 0;
+}
+
+.more-size {
+    font-size: 28px;
+}
+
+.no-decoration {
+    text-decoration: unset;
+}
+
+.no-decoration:hover {
+    text-decoration: unset;
+}
+
+.space-bottom {
+    margin-bottom: 1.5em;
 }

@@ -24,7 +24,7 @@ def index(request):
 
 
 urlpatterns = [
-    path('', index),
+    path('', index, name='index'),
     path('', include('transaction.urls')),
 
     path('admin/', admin.site.urls, name='login_admin'),

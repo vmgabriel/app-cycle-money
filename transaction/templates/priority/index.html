@@ -5,9 +5,16 @@
 
 {% block content %}
 
-<h1>Priorities</h1>
-
-<h3>Counter: {{ count_priorities }}</h3>
+<div class="form-content space-bottom">
+    <div class="form-title">
+        <div class="row only-anchor">
+            <a class="col-sm-1 centering no-decoration" href="{% url 'index' %}">
+                <i class="fas fa-arrow-left more-size"></i>
+            </a>
+            <h2 class="col-sm-10 centering">Priority</h2>
+        </div>
+    </div>
+</div>
 
 <div class="row justify-content-end">
     <a
@@ -18,13 +25,31 @@
     </a>
 </div>
 
+<div class="search-box">
+    <div class="form-group row">
+        <div class="col-sm-11">
+            <input
+                type="text"
+                class="form-control"
+                id="txt_search"
+                onkeypress="keyPress(event)"
+                value="{{ search }}"
+            >
+        </div>
+        <a class="btn btn-primary col-sm-1" onclick="find()">
+            <i class="fas fa-search">
+            </i>
+        </a>
+    </div>
+</div>
+
 {% if priorities %}
 
 <table class="table all-anchor">
     <thead>
         <tr>
             <th scope="col">
-                <a href="{% url 'transactions:priorities_list' %}?page={{offset}}&order={% if 'name' in orders or '-name' in orders %}{% for order in orders %}{% if order == 'name' or order == '-name' %}{{order|negative}},{% else %}{{ order }},{% endif %}{% endfor %}{% else %}{{orders|join_array|add_comma_end}}name,{% endif %}">
+                <a href="{% url 'transactions:priorities_list' %}?page={{offset}}{{search|add_anpersand_search}}&order={% if 'name' in orders or '-name' in orders %}{% for order in orders %}{% if order == 'name' or order == '-name' %}{{order|negative}},{% else %}{{ order }},{% endif %}{% endfor %}{% else %}{{orders|join_array|add_comma_end}}name,{% endif %}">
                     Name
                 </a>
                 {% if 'name' in orders %}
@@ -35,7 +60,7 @@
                 {% endif %}
             </th>
             <th scope="col">
-                <a href="{% url 'transactions:priorities_list' %}?page={{offset}}&order={% if 'description' in orders or '-description' in orders %}{% for order in orders %}{% if order == 'description' or order == '-description' %}{{order|negative}},{% else %}{{ order }},{% endif %}{% endfor %}{% else %}{{orders|join_array|add_comma_end}}description,{% endif %}">
+                <a href="{% url 'transactions:priorities_list' %}?page={{offset}}{{search|add_anpersand_search}}&order={% if 'description' in orders or '-description' in orders %}{% for order in orders %}{% if order == 'description' or order == '-description' %}{{order|negative}},{% else %}{{ order }},{% endif %}{% endfor %}{% else %}{{orders|join_array|add_comma_end}}description,{% endif %}">
                     Description
                 </a>
                 {% if 'description' in orders %}
@@ -75,6 +100,12 @@
                     >
                         <i class="fas fa-edit"></i>
                     </a>
+                    <a
+                        class="btn btn-outline-secondary free"
+                        href="{% url 'transactions:priorities_show' id=priority.id %}"
+                    >
+                        <i class="fas fa-eye"></i>
+                    </a>
                 </div>
             </td>
         </tr>
@@ -85,13 +116,13 @@
     {{ count_getted }} of {{ count_priorities }}
 </p>
 
-<nav aria-label="Page navigation example">
+<nav class="paginator-box centering" aria-label="Page navigation">
     <ul class="pagination">
         {% if offset > 0 %}
         <li class="page-item">
             <a
                 class="page-link"
-                href="{% url 'transactions:priorities_list' %}?page={{offset|minus}}&order={{orders|join_array}}"
+                href="{% url 'transactions:priorities_list' %}?page={{offset|minus}}{{search|add_anpersand_search}}&order={{orders|join_array}}"
             >
                 Previous
             </a>
@@ -102,7 +133,7 @@
         <li class="page-item">
             <a
                 class="page-link"
-                href="{% url 'transactions:priorities_list' %}?page={{offset|minus|minus}}&order={{orders|join_array}}"
+                href="{% url 'transactions:priorities_list' %}?page={{offset|minus|minus}}{{search|add_anpersand_search}}&order={{orders|join_array}}"
             >
                 {{ offset|minus }}
             </a>
@@ -113,7 +144,7 @@
         <li class="page-item">
             <a
                 class="page-link"
-                href="{% url 'transactions:priorities_list' %}?page={{offset|minus}}&order={{orders|join_array}}"
+                href="{% url 'transactions:priorities_list' %}?page={{offset|minus}}{{search|add_anpersand_search}}&order={{orders|join_array}}"
             >
                 {{ offset }}
             </a>
@@ -134,7 +165,7 @@
         <li class="page-item">
             <a
                 class="page-link"
-                href="{% url 'transactions:priorities_list' %}?page={{paginate|minus}}&order={{orders|join_array}}"
+                href="{% url 'transactions:priorities_list' %}?page={{paginate|minus}}{{search|add_anpersand_search}}&order={{orders|join_array}}"
             >
                 {{ paginate }}
             </a>
@@ -146,7 +177,7 @@
         <li class="page-item">
             <a
                 class="page-link"
-                href="{% url 'transactions:priorities_list' %}?page={{offset|more}}&order={{orders|join_array}}"
+                href="{% url 'transactions:priorities_list' %}?page={{offset|more}}{{search|add_anpersand_search}}&order={{orders|join_array}}"
             >
                 Next
             </a>
@@ -163,4 +194,30 @@
 
 
 {% block script %}
+<script>
+
+ const getData = (data) => document.getElementById(data);
+
+ function find() {
+     const toFind = getData('txt_search').value;
+     const port = (window.location.port != undefined) ? ':' + window.location.port : '' ;
+
+     let url = "{% url 'transactions:priorities_list' %}";
+     const page = "page={{offset}}";
+     const order = "order={{orders|join_array}}";
+     const search = (toFind != undefined) ? `&search=${toFind}` : '';
+     const urlBase = `${window.location.protocol}//${window.location.hostname}${port}`;
+
+     console.log(`${urlBase}${url}?${page}${search}&${order}`);
+     window.location.replace(`${urlBase}${url}?${page}&${search}&${order}`);
+ }
+
+ function keyPress(e) {
+     if (e.keyCode == 13) { // If Enter
+         find();
+     }
+ }
+
+</script>
+
 {% endblock %}

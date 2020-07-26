@@ -1,7 +1,16 @@
 {% extends 'index.html' %}
 
 {% block content %}
-hello world
+
+<h3>List of Urls</h3>
+<ul>
+    <li>
+        <a href="{% url 'transactions:priorities_list' %}">
+            Priority
+        </a>
+    </li>
+</ul>
+
 {% endblock %}
 
 
