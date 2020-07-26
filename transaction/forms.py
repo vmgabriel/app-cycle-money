@@ -4,7 +4,7 @@
 
 from django import forms
 
-from .models import Priority, TypeConsume
+from .models import Priority, TypeConsume, TypeBill
 
 
 class PriorityForm(forms.ModelForm):
@@ -48,6 +48,29 @@ class TypeConsumeForm(forms.ModelForm):
     def save(self, commit=True):
         """Save Data Valid"""
         instance = super(TypeConsumeForm, self).save(commit=False)
+        if commit:
+            instance.save()
+        return instance
+
+
+class TypeBillForm(forms.ModelForm):
+    """Class For Type Bill Form"""
+    class Meta:
+        """Meta Class for Form"""
+        model = TypeBill
+        fields = '__all__'
+
+    def clean_name(self):
+        """Clean Name form"""
+        return self.cleaned_data['name']
+
+    def clean_description(self):
+        """Clean Description form"""
+        return self.cleaned_data['description']
+
+    def save(self, commit=True):
+        """Save Data Valid"""
+        instance = super(TypeBillForm, self).save(commit=False)
         if commit:
             instance.save()
         return instance

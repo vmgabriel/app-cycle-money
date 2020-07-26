@@ -8,9 +8,6 @@ from . import views
 
 app_name = 'transactions'
 urlpatterns = [
-    path('data/', views.index, name='index'),
-    path('create/', views.create, name='create'),
-    path('bills/', views.BillsView.as_view(), name='views'),
     # Priorities Routes
     path(
         'priorities/',
@@ -63,5 +60,32 @@ urlpatterns = [
         'type-consumes/<int:id>/show/',
         views.TypeConsumeEntityView.as_view(),
         name='type_consumes_show'
+    ),
+
+    # Type Bill Routes
+    path(
+        'type-bills/',
+        views.TypeBillEntityView.as_view(),
+        name='type_bills_list',
+    ),
+    path(
+        'type-bills/create/',
+        views.TypeBillEntityView.as_view(),
+        name='type_bills_create'
+    ),
+    path(
+        'type-bills/<int:id>/edit/',
+        views.TypeBillEntityView.as_view(),
+        name='type_bills_edit'
+    ),
+    path(
+        'type-bills/<int:id>/delete/',
+        views.TypeBillEntityView.as_view(),
+        name='type_bills_delete'
+    ),
+    path(
+        'type-bills/<int:id>/show/',
+        views.TypeBillEntityView.as_view(),
+        name='type_bills_show'
     ),
 ]
